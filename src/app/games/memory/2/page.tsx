@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { useState, useEffect } from 'react';
 import GameSectionLayout from "@/app/components/GameSectionLayout";
@@ -37,14 +38,12 @@ export default function MemoryGameTwo() {
         const removedShape = shapes[randomIndex];
         setMissingShape(removedShape);
         
-        // Create new array with the missing shape replaced by null
         const newShapes = [...shapes];
         newShapes[randomIndex] = { id: 0, icon: null, color: '' };
         setVisibleShapes(newShapes);
         
         setShowingSequence(false);
 
-        // Set up bottom shapes
         const uniqueShapes = Array.from(new Set(shapes.map(s => s.color)))
           .map(color => shapes.find(s => s.color === color)!);
         setBottomShapes(uniqueShapes);
@@ -52,7 +51,7 @@ export default function MemoryGameTwo() {
 
       return () => clearTimeout(timer);
     }
-  }, [showingSequence]);
+  }, [showingSequence, shapes]);
 
   const handleDragStart = (e: React.DragEvent, shape: Shape) => {
     e.dataTransfer.setData('shapeId', shape.id.toString());

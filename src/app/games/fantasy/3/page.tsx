@@ -51,10 +51,6 @@ export default function FantasyGameThree() {
     }
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
   const handleRestart = () => {
     setShowModal(false);
     setSuccess(false);
