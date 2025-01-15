@@ -30,7 +30,7 @@ export default function MemoryGameThree() {
       cards: [
         { id: 1, image: "/assets/games/apple.png", alt: "Алма" },
         { id: 2, image: "/assets/games/banana.png", alt: "Банан" },
-        { id: 3, image: "/assets/games/pencil.png", alt: "Қалам" },
+        { id: 3, image: "/assets/games/pencil.png", alt: "Қарандаш" },
         { id: 4, image: "/assets/games/pen.png", alt: "Қалам" },
         { id: 5, image: "/assets/games/car.png", alt: "Көлік" },
       ]
@@ -51,7 +51,7 @@ export default function MemoryGameThree() {
         { id: 11, image: "/assets/games/car.png", alt: "Көлік" },
         { id: 12, image: "/assets/games/book.png", alt: "Кітап" },
         { id: 13, image: "/assets/games/pen.png", alt: "Қалам" },
-        { id: 14, image: "/assets/games/pencil.png", alt: "Қалам" },
+        { id: 14, image: "/assets/games/pencil.png", alt: "Қарандаш" },
         { id: 15, image: "/assets/games/cat.png", alt: "Мысық" },
       ]
     },

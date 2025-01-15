@@ -26,6 +26,9 @@ export default function ThinkingGameTwo() {
     { id: 4, image: "/assets/games/crocodile.webp", alt: "Қолтырауын", word: "Қолтырауын", missingIndexes: [2, 3, 5] },
     { id: 5, image: "/assets/games/car.png", alt: "Көлік", word: "Көлік", missingIndexes: [4] },
     { id: 6, image: "/assets/games/sunflower.webp", alt: "Күнбағыс", word: "Күнбағыс", missingIndexes: [4, 6] },
+    { id: 7, image: "/assets/games/bird.png", alt: "Құс", word: "Құс", missingIndexes: [0] },
+    { id: 8, image: "/assets/games/camel.png", alt: "Түйе", word: "Түйе", missingIndexes: [3, 4] },
+    { id: 9, image: "/assets/games/duck.png", alt: "Үйрек", word: "Үйрек", missingIndexes: [2, 4] },
   ]);
 
   const [inputs, setInputs] = useState<Inputs>({});

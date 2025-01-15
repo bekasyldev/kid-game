@@ -14,7 +14,7 @@ export default function MemoryGameSeven() {
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false);
   const [words] = useState<Word[]>([
-    { id: 1, text: "Арымақ", vowel: "А" },
+    { id: 1, text: "Арғымақ", vowel: "А" },
     { id: 2, text: "Әке", vowel: "Ә" },
     { id: 3, text: "Үлгі", vowel: "Ү" },
     { id: 4, text: "Әнші", vowel: "Ә" },

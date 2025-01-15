@@ -17,14 +17,19 @@ export default function ThinkingGameSeven() {
   const [matchedPairs, setMatchedPairs] = useState<number[]>([]);
 
   const items: Item[] = [
-    { id: 1, image: '/assets/games/cat.png', alt: 'Мысық', size: 'big' },
-    { id: 2, image: '/assets/games/tiger.png', alt: 'Жолбарыс', size: 'big' },
-    { id: 3, image: '/assets/games/crocodile.webp', alt: 'Крокодил', size: 'big' },
+    { id: 1, image: '/assets/games/bird.png', alt: 'Құс', size: 'big' },
+    { id: 2, image: '/assets/games/camel.png', alt: 'Түйе', size: 'big' },
+    { id: 3, image: '/assets/games/duck.png', alt: 'Үйрек', size: 'big' },
     { id: 4, image: '/assets/games/gippo.png', alt: 'Бегамот', size: 'big' },
-    { id: 5, image: '/assets/games/cat.png', alt: 'Мысық', size: 'small' },
-    { id: 6, image: '/assets/games/tiger.png', alt: 'Жолбарыс', size: 'small' },
-    { id: 7, image: '/assets/games/crocodile.webp', alt: 'Крокодил', size: 'small' },
-    { id: 8, image: '/assets/games/gippo.png', alt: 'Бегамот', size: 'small' },
+    { id: 5, image: '/assets/games/dog.png', alt: 'Ит', size: 'big' },
+    { id: 6, image: '/assets/games/cat.png', alt: 'Мысық', size: 'big' },
+    { id: 7, image: '/assets/games/bird.png', alt: 'Құс', size: 'small' },
+    { id: 8, image: '/assets/games/camel.png', alt: 'Түйе', size: 'small' },
+    { id: 9, image: '/assets/games/duck.png', alt: 'Үйрек', size: 'small' },
+    { id: 10, image: '/assets/games/gippo.png', alt: 'Бегамот', size: 'small' },
+    { id: 11, image: '/assets/games/dog.png', alt: 'Ит', size: 'small' },
+    { id: 12, image: '/assets/games/cat.png', alt: 'Мысық', size: 'small' },
+
   ];
 
   const [availableItems, setAvailableItems] = useState([...items].sort(() => Math.random() - 0.5));

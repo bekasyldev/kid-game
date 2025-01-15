@@ -14,18 +14,25 @@ export default function ThinkingGameOne() {
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
-  const [animals] = useState<Animal[]>([
+  const [isLoading, setIsLoading] = useState(true);
+
+  const animals = [
     { id: 1, image: "/assets/games/rabbit.png", alt: "Қоян" },
     { id: 2, image: "/assets/games/tiger.png", alt: "Жолбарыс" },
     { id: 3, image: "/assets/games/elk.png", alt: "Бұлан" },
     { id: 4, image: "/assets/games/kangaroo.png", alt: "Кенгуру" },
     { id: 5, image: "/assets/games/gippo.png", alt: "Сусиыр" },
-  ]);
+    { id: 6, image: "/assets/games/bird.png", alt: "Құс" },
+    { id: 7, image: "/assets/games/fox.png", alt: "Түлкі" },
+    { id: 8, image: "/assets/games/dog.png", alt: "Ит" },
+    { id: 9, image: "/assets/games/camel.png", alt: "Түйе" },
+    { id: 10, image: "/assets/games/frog.png", alt: "Құрбақа" },
+  ];
 
   useEffect(() => {
-    // Randomly select an animal when component mounts
     const randomIndex = Math.floor(Math.random() * animals.length);
     setSelectedAnimal(animals[randomIndex]);
+    setIsLoading(false);
   }, []);
 
   const handleAnimalClick = (animal: Animal) => {
@@ -33,7 +40,6 @@ export default function ThinkingGameOne() {
       setSuccess(true);
       setShowModal(true);
     } else {
-      // Add shake animation class to the clicked wrong animal
       const element = document.getElementById(`animal-${animal.id}`);
       element?.classList.add('shake');
       setTimeout(() => {
@@ -47,6 +53,20 @@ export default function ThinkingGameOne() {
     const randomIndex = Math.floor(Math.random() * animals.length);
     setSelectedAnimal(animals[randomIndex]);
   };
+
+  if (isLoading) {
+    return (
+      <GameSectionLayout 
+        title="Жануарды көлеңкесіне қарай табыңыз" 
+        backgroundImage="/assets/bg/thinking.webp"
+        darkHeader
+      >
+        <div className="flex justify-center items-center h-full">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
+        </div>
+      </GameSectionLayout>
+    );
+  }
 
   return (
     <GameSectionLayout 
@@ -62,7 +82,7 @@ export default function ThinkingGameOne() {
               alt={selectedAnimal.alt}
               width={256}
               height={256}
-              className="h-64 object-contain mt-4"
+              className="h-64 object-contain mt-4 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)]"
             />
           )}
         </div>
@@ -73,14 +93,14 @@ export default function ThinkingGameOne() {
               key={animal.id}
               id={`animal-${animal.id}`}
               onClick={() => handleAnimalClick(animal)}
-              className="border bg-white p-4 rounded-lg"
+              className="border bg-white p-4 rounded-lg hover:shadow-lg transition-shadow"
             >
               <Image
                 src={animal.image}
                 alt={animal.alt}
                 width={160}
                 height={160}
-                className="h-full object-contain grayscale brightness-0"
+                className="h-full object-contain grayscale brightness-0 drop-shadow-[0_0_10px_rgba(0,0,0,0.3)]"
               />
             </button>
           ))}

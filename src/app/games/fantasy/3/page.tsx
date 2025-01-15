@@ -15,9 +15,14 @@ export default function FantasyGameThree() {
   const [success, setSuccess] = useState(false);
   const [items] = useState<Item[]>([
     { id: 1, image: "/assets/games/dog.png", word: "Ит" },
-    { id: 2, image: "/assets/games/pen.png", word: "Қарындаш" },
+    { id: 2, image: "/assets/games/pen.png", word: "Қалам" },
     { id: 3, image: "/assets/games/car.png", word: "Көлік" },
     { id: 4, image: "/assets/games/table.png", word: "Стол" },
+    { id: 5, image: "/assets/games/clock.png", word: "Сағат" },
+    { id: 6, image: "/assets/games/bird.png", word: "Құс" },
+    { id: 7, image: "/assets/games/duck.png", word: "Үйрек" },
+    { id: 8, image: "/assets/games/frog.png", word: "Бақа" },
+
   ]);
 
   const [matched, setMatched] = useState<boolean[]>(Array(items.length).fill(false));

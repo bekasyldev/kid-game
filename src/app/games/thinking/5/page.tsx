@@ -28,8 +28,18 @@ export default function ThinkingGameFive() {
     },
     {
       id: 3,
-      sequence: ['/assets/games/pen.png', '/assets/games/pencil.png', '/assets/games/pen.png'],
-      answer: '/assets/games/pencil.png'
+      sequence: ['/assets/games/bird.png', '/assets/games/camel.png', '/assets/games/bird.png'],
+      answer: '/assets/games/bird.png'
+    },
+    {
+      id: 4,
+      sequence: ['/assets/games/duck.png', '/assets/games/camel.png', '/assets/games/duck.png'],
+      answer: '/assets/games/duck.png'
+    },
+    {
+      id: 5,
+      sequence: ['/assets/games/bird.png', '/assets/games/fox.png', '/assets/games/bird.png'],
+      answer: '/assets/games/bird.png'
     }
   ];
 

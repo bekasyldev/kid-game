@@ -1,110 +1,150 @@
 'use client'
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import GameSectionLayout from "@/app/components/GameSectionLayout";
 import GameModal from '@/app/components/GameModal';
+import Image from 'next/image';
 
-interface Item {
+interface PicturePuzzle {
   id: number;
-  color: string;
-  bgColor: string;
+  mainImage: string;
+  pieceImage: string;
+  alt: string;
 }
 
-export default function FantasyGameSeven() {
+export default function AttentionGameOne() {
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [userSequence, setUserSequence] = useState<Item[]>([]);
+  const [correctMatches, setCorrectMatches] = useState<number[]>([]);
+  const [shuffledPieces, setShuffledPieces] = useState<PicturePuzzle[]>([]);
 
-  const items: Item[] = [
-    { id: 1, color: 'green', bgColor: 'bg-green-500' },
-    { id: 2, color: 'red', bgColor: 'bg-red-500' },
-    { id: 3, color: 'blue', bgColor: 'bg-blue-500' },
+  const puzzles: PicturePuzzle[] = [
+    { 
+      id: 1, 
+      mainImage: '/new/sun.jpeg', 
+      pieceImage: '/new/sun.jpeg',
+      alt: 'Күн' 
+    },
+    { 
+      id: 2, 
+      mainImage: '/new/toy.png', 
+      pieceImage: '/new/toy.png',
+      alt: 'Ойыншық' 
+    },
+    { 
+      id: 3, 
+      mainImage: '/new/car.png', 
+      pieceImage: '/new/car.png',
+      alt: 'Көлік' 
+    },
+    { 
+      id: 4, 
+      mainImage: '/new/umbrella.png', 
+      pieceImage: '/new/umbrella.png',
+      alt: 'Қолшатыр' 
+    },
   ];
 
-  // Create three rows of patterns
-  const rowPatterns = [
-    [items[0], items[1], items[2], items[0]], // First row
-    [items[1], items[2], items[0], items[1]], // Second row
-    [items[2], items[0], items[1], items[2]], // Third row
-  ];
+  useEffect(() => {
+    // Shuffle the pieces at start
+    setShuffledPieces([...puzzles].sort(() => Math.random() - 0.5));
+  }, []);
 
-  const handleDragStart = (e: React.DragEvent, item: Item) => {
-    e.dataTransfer.setData('itemId', item.id.toString());
+  const handleDragStart = (e: React.DragEvent, piece: PicturePuzzle) => {
+    e.dataTransfer.setData('pieceId', piece.id.toString());
   };
 
-  const handleDrop = (e: React.DragEvent, rowIndex: number) => {
+  const handleDrop = (e: React.DragEvent, targetId: number) => {
     e.preventDefault();
-    const itemId = parseInt(e.dataTransfer.getData('itemId'));
-    const droppedItem = items.find(i => i.id === itemId);
-    
-    if (!droppedItem) return;
+    const pieceId = parseInt(e.dataTransfer.getData('pieceId'));
 
-    // Check if the dropped item matches the pattern for this row
-    if (droppedItem.id === rowPatterns[rowIndex][3].id) {
-      setUserSequence(prev => {
-        const newSequence = [...prev];
-        newSequence[rowIndex] = droppedItem;
-        
-        // Check if all three rows are complete
-        if (newSequence.filter(Boolean).length === 3) {
+    if (pieceId === targetId && !correctMatches.includes(targetId)) {
+      setCorrectMatches(prev => [...prev, targetId]);
+
+      if (correctMatches.length === puzzles.length - 1) {
+        setTimeout(() => {
           setSuccess(true);
           setShowModal(true);
-        }
-        return newSequence;
-      });
+        }, 500);
+      }
+    } else {
+      // Add shake animation for incorrect match
+      const element = document.getElementById(`puzzle-${targetId}`);
+      element?.classList.add('shake');
+      setTimeout(() => {
+        element?.classList.remove('shake');
+      }, 500);
     }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
   };
 
   const handleRestart = () => {
     setShowModal(false);
     setSuccess(false);
-    setUserSequence([]);
+    setCorrectMatches([]);
+    setShuffledPieces([...puzzles].sort(() => Math.random() - 0.5));
   };
 
   return (
     <GameSectionLayout 
-      title="Тізбекті жалғастыр" 
-      backgroundImage="/assets/bg/fantasy.webp"
+      title="Бөлігін тап" 
+      backgroundImage="/assets/bg/memory.jpg"
       darkHeader
     >
-      <div className="flex flex-col items-center p-6">
-        {/* Pattern rows */}
-        <div className="flex flex-col gap-8 mb-12">
-          {rowPatterns.map((pattern, rowIndex) => (
-            <div key={rowIndex} className="flex gap-4">
-              {/* Show first 3 items */}
-              {pattern.slice(0, 3).map((item, index) => (
-                <div 
-                  key={index}
-                  className="w-32 h-32 rounded-lg flex items-center justify-center"
-                >
-                  <div className={`w-full h-full rounded-lg ${item.bgColor}`}></div>
+      <div className="flex flex-col items-center p-6 gap-12">
+        {/* Main pictures row */}
+        <div className="grid grid-cols-4 gap-8">
+          {puzzles.map((puzzle) => (
+            <div
+              key={puzzle.id}
+              id={`puzzle-${puzzle.id}`}
+              className={`relative w-48 h-48 bg-white rounded-lg p-4 transition-all
+                ${correctMatches.includes(puzzle.id) ? 'bg-green-100' : ''}`}
+              onDrop={(e) => handleDrop(e, puzzle.id)}
+              onDragOver={handleDragOver}
+            >
+              <Image 
+                src={puzzle.mainImage}
+                alt={puzzle.alt}
+                width={160}
+                height={160}
+                className="object-contain"
+              />
+              {correctMatches.includes(puzzle.id) && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Image 
+                    src={puzzle.pieceImage}
+                    alt={`${puzzle.alt} piece`}
+                    width={160}
+                    height={160}
+                    className="object-contain"
+                  />
                 </div>
-              ))}
-
-              {/* Empty slot for matching */}
-              <div 
-                className="w-32 h-32 bg-white rounded-lg flex items-center justify-center border-2 border-dashed"
-                onDrop={(e) => handleDrop(e, rowIndex)}
-                onDragOver={(e) => e.preventDefault()}
-              >
-                {userSequence[rowIndex] && (
-                  <div className={`w-full h-full rounded-lg ${userSequence[rowIndex].bgColor}`}></div>
-                )}
-              </div>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Available items for dragging */}
-        <div className="flex gap-4">
-          {items.map((item) => (
+        {/* Pieces row */}
+        <div className="grid grid-cols-4 gap-8">
+          {shuffledPieces.map((piece) => (
             <div
-              key={item.id}
-              draggable
-              onDragStart={(e) => handleDragStart(e, item)}
-              className="w-32 h-32 bg-white rounded-lg flex items-center justify-center cursor-move hover:shadow-lg transition-shadow"
+              key={piece.id}
+              draggable={!correctMatches.includes(piece.id)}
+              onDragStart={(e) => handleDragStart(e, piece)}
+              className={`w-48 h-48 bg-white rounded-lg p-4 cursor-move transition-all
+                ${correctMatches.includes(piece.id) ? 'opacity-50' : 'hover:shadow-lg'}
+                ${correctMatches.includes(piece.id) ? 'cursor-default' : 'cursor-move'}`}
             >
-              <div className={`w-full h-full rounded-lg ${item.bgColor}`}></div>
+              <Image 
+                src={piece.pieceImage}
+                alt={`${piece.alt} piece`}
+                width={160}
+                height={160}
+              />
             </div>
           ))}
         </div>
@@ -115,6 +155,7 @@ export default function FantasyGameSeven() {
           <GameModal success={success} onRestart={handleRestart} />
         </div>
       )}
+
     </GameSectionLayout>
   );
 }

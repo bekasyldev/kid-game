@@ -2,7 +2,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import GameSectionLayout from "@/app/components/GameSectionLayout";
-import { FaCircle, FaHeart, FaStar, FaSquare } from 'react-icons/fa';
+import { FaCircle, FaHeart, FaStar, FaSquare, FaPlus } from 'react-icons/fa';
 import GameModal from '@/app/components/GameModal';
 
 interface Shape {
@@ -16,7 +16,6 @@ export default function MemoryGameTwo() {
   const [success, setSuccess] = useState(false);
   const [showingSequence, setShowingSequence] = useState(true);
   const [missingShape, setMissingShape] = useState<Shape | null>(null);
-  
   const shapes: Shape[] = [
     { id: 1, icon: <FaCircle size="8rem" />, color: "rgb(110, 225, 121)" },
     { id: 2, icon: <FaHeart size="8rem" />, color: "red" },
@@ -39,7 +38,7 @@ export default function MemoryGameTwo() {
         setMissingShape(removedShape);
         
         const newShapes = [...shapes];
-        newShapes[randomIndex] = { id: 0, icon: null, color: '' };
+        newShapes[randomIndex] = null;
         setVisibleShapes(newShapes);
         
         setShowingSequence(false);
@@ -51,7 +50,7 @@ export default function MemoryGameTwo() {
 
       return () => clearTimeout(timer);
     }
-  }, [showingSequence, shapes]);
+  }, [showingSequence]);
 
   const handleDragStart = (e: React.DragEvent, shape: Shape) => {
     e.dataTransfer.setData('shapeId', shape.id.toString());
@@ -106,10 +105,12 @@ export default function MemoryGameTwo() {
                   ) : (
                     <div 
                       id="empty-slot"
-                      className="w-32 h-32 border-2 border-dashed rounded-lg"
+                      className="w-32 h-32 border-2 border-dashed border-white rounded-lg flex items-center justify-center"
                       onDrop={handleDrop}
                       onDragOver={handleDragOver}
-                    />
+                    >
+                      <FaPlus color="white" size="4rem" />
+                    </div>
                   )}
                 </li>
               ))}
@@ -121,7 +122,7 @@ export default function MemoryGameTwo() {
               {bottomShapes.map((shape, index) => (
                 <li 
                   key={index} 
-                  className="flex flex-col items-center cursor-pointer"
+                  className="flex flex-col items-center cursor-move"
                   draggable
                   onDragStart={(e) => handleDragStart(e, shape)}
                 >
@@ -140,6 +141,19 @@ export default function MemoryGameTwo() {
           <GameModal success={success} onRestart={handleRestart} />
         </div>
       )}
+
+      <style jsx>{`
+        .shake {
+          animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+          10%, 90% { transform: translate3d(-1px, 0, 0); }
+          20%, 80% { transform: translate3d(2px, 0, 0); }
+          30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+          40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+      `}</style>
     </GameSectionLayout>
   );
 }

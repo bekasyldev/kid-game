@@ -18,14 +18,16 @@ export default function AttentionGameFive() {
   const [shuffledCards, setShuffledCards] = useState<Card[]>([]);
 
   const cards: Card[] = [
-    { id: 1, image: "/assets/games/cat.png", alt: "Мысық" },
-    { id: 2, image: "/assets/games/cat.png", alt: "Мысық" },
-    { id: 3, image: "/assets/games/dog.png", alt: "Ит" },
-    { id: 4, image: "/assets/games/dog.png", alt: "Ит" },
-    { id: 5, image: "/assets/games/rabbit.png", alt: "Қоян" },
-    { id: 6, image: "/assets/games/rabbit.png", alt: "Қоян" },
-    { id: 7, image: "/assets/games/horse.png", alt: "Жылқы" },
-    { id: 8, image: "/assets/games/horse.png", alt: "Жылқы" },
+    { id: 1, image: "/assets/games/duck.png", alt: "Қаз" },
+    { id: 2, image: "/assets/games/bird.png", alt: "Құс" },
+    { id: 3, image: "/assets/games/bus.webp", alt: "Автобус" },
+    { id: 4, image: "/assets/games/car.png", alt: "Машина" },
+    { id: 5, image: "/assets/games/clock.png", alt: "Сағат" },
+    { id: 6, image: "/assets/games/bird.png", alt: "Құс" },
+    { id: 7, image: "/assets/games/duck.png", alt: "Қаз" },
+    { id: 8, image: "/assets/games/clock.png", alt: "Сағат" },
+    { id: 9, image: "/assets/games/car.png", alt: "Машина" },
+    { id: 10, image: "/assets/games/bus.webp", alt: "Автобус" },
   ];
 
   useEffect(() => {
