@@ -16,7 +16,7 @@ export default function MemoryGameTwo() {
   const [success, setSuccess] = useState(false);
   const [showingSequence, setShowingSequence] = useState(true);
   const [missingShape, setMissingShape] = useState<Shape | null>(null);
-  const shapes: Shape[] = [
+  const shapes: (Shape | null)[] = [
     { id: 1, icon: <FaCircle size="8rem" />, color: "rgb(110, 225, 121)" },
     { id: 2, icon: <FaHeart size="8rem" />, color: "red" },
     { id: 3, icon: <FaHeart size="8rem" />, color: "red" },
@@ -27,7 +27,7 @@ export default function MemoryGameTwo() {
     { id: 8, icon: <FaSquare size="8rem" />, color: "rgb(98, 200, 243)" },
   ];
 
-  const [visibleShapes, setVisibleShapes] = useState<Shape[]>(shapes);
+  const [visibleShapes, setVisibleShapes] = useState<(Shape | null)[]>(shapes);
   const [bottomShapes, setBottomShapes] = useState<Shape[]>([]);
 
   useEffect(() => {
@@ -37,14 +37,14 @@ export default function MemoryGameTwo() {
         const removedShape = shapes[randomIndex];
         setMissingShape(removedShape);
         
-        const newShapes = [...shapes];
+        const newShapes  = [...shapes];
         newShapes[randomIndex] = null;
         setVisibleShapes(newShapes);
         
         setShowingSequence(false);
 
-        const uniqueShapes = Array.from(new Set(shapes.map(s => s.color)))
-          .map(color => shapes.find(s => s.color === color)!);
+        const uniqueShapes = Array.from(new Set(shapes.map(s => s?.color)))
+          .map(color => shapes.find(s => s?.color === color)!);
         setBottomShapes(uniqueShapes);
       }, 5000);
 
@@ -59,7 +59,7 @@ export default function MemoryGameTwo() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     const shapeId = parseInt(e.dataTransfer.getData('shapeId'));
-    const droppedShape = shapes.find(s => s.id === shapeId);
+    const droppedShape = shapes.find(s => s?.id === shapeId);
     
     if (droppedShape && missingShape && droppedShape.color === missingShape.color) {
       setSuccess(true);
@@ -142,18 +142,6 @@ export default function MemoryGameTwo() {
         </div>
       )}
 
-      <style jsx>{`
-        .shake {
-          animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-        }
-
-        @keyframes shake {
-          10%, 90% { transform: translate3d(-1px, 0, 0); }
-          20%, 80% { transform: translate3d(2px, 0, 0); }
-          30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-          40%, 60% { transform: translate3d(4px, 0, 0); }
-        }
-      `}</style>
     </GameSectionLayout>
   );
 }
