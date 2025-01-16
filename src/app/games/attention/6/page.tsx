@@ -82,7 +82,7 @@ export default function AttentionGameSix() {
   return (
     <GameSectionLayout 
       title="Сыңарын тауып көр" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/6.jpg"
       darkHeader
     >
       <div className="flex justify-center p-6">

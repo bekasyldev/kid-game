@@ -97,7 +97,7 @@ export default function AttentionGameThree() {
   return (
     <GameSectionLayout 
       title="Келесі не" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/3.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

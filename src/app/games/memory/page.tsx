@@ -6,7 +6,7 @@ export default function MemoryGamesPage() {
     { title: "Тізбекті жалғастыр", link: "/games/memory/2" },
     { title: "Дұрыс қатарды тап", link: "/games/memory/3" },
     { title: "Бірдей суретті тап", link: "/games/memory/4" },
-    { title: "Әріптерді сәйкестендір", link: "/games/memory/5" },
+    { title: "Әріптерден суреттің сөзін құра", link: "/games/memory/5" },
     { title: "Қатарды жаттап ал", link: "/games/memory/6" },
     { title: "Сөздерді орналастыр", link: "/games/memory/7" },
   ];

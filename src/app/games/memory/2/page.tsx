@@ -89,7 +89,7 @@ export default function MemoryGameTwo() {
   return (
     <GameSectionLayout 
       title="Жоғалған фигураны тап" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/2.jpg"
       darkHeader
     >
       <section className="h-full flex flex-col justify-center gap-10">

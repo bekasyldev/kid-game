@@ -3,111 +3,145 @@
 import { useState, useEffect } from 'react';
 import GameSectionLayout from "@/app/components/GameSectionLayout";
 import GameModal from '@/app/components/GameModal';
+import Image from 'next/image';
 
-interface Letter {
+interface WordPuzzle {
   id: number;
-  upper: string;
-  lower: string;
+  image: string;
+  word: string;
+  alt: string;
 }
 
 export default function MemoryGameFive() {
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [matched, setMatched] = useState<boolean[]>(Array(6).fill(false));
-  const [letters] = useState<Letter[]>([
-    { id: 1, upper: 'А', lower: 'а' },
-    { id: 2, upper: 'Ә', lower: 'ә' },
-    { id: 3, upper: 'Б', lower: 'б' },
-    { id: 4, upper: 'В', lower: 'в' },
-    { id: 5, upper: 'Г', lower: 'г' },
-    { id: 6, upper: 'Ғ', lower: 'ғ' },
+  const [puzzles] = useState<WordPuzzle[]>([
+    { id: 1, image: '/assets/games/bee_4.png', word: 'АРА', alt: 'Ара' },
+    { id: 2, image: '/assets/games/clock.png', word: 'САҒАТ', alt: 'Сағат' },
+    { id: 3, image: '/assets/games/fish.png', word: 'БАЛЫҚ', alt: 'Балық' },
+    { id: 4, image: '/assets/games/horse.png', word: 'ЖЫЛҚЫ', alt: 'Жылқы' },
   ]);
-
-  const [shuffledUpperCase, setShuffledUpperCase] = useState<Letter[]>([]);
-  const [shuffledLowerCase, setShuffledLowerCase] = useState<Letter[]>([]);
+  
+  const [scrambledLetters, setScrambledLetters] = useState<{ [key: number]: string[] }>({});
+  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string[] }>({});
+  const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
 
   useEffect(() => {
-    shuffleLetters();
+    initializeGame();
   }, []);
 
-  const shuffleLetters = () => {
-    setShuffledUpperCase([...letters].sort(() => Math.random() - 0.5));
-    setShuffledLowerCase([...letters].sort(() => Math.random() - 0.5));
+  const initializeGame = () => {
+    const initialScrambled: { [key: number]: string[] } = {};
+    const initialAnswers: { [key: number]: string[] } = {};
+    
+    puzzles.forEach(puzzle => {
+      initialScrambled[puzzle.id] = puzzle.word.split('').sort(() => Math.random() - 0.5);
+      initialAnswers[puzzle.id] = Array(puzzle.word.length).fill('');
+    });
+    
+    setScrambledLetters(initialScrambled);
+    setUserAnswers(initialAnswers);
+    setCorrectAnswers([]);
   };
 
-  const handleDragStart = (e: React.DragEvent, letter: Letter) => {
-    e.dataTransfer.setData('letter', JSON.stringify(letter));
+  const handleDragStart = (e: React.DragEvent, letter: string, puzzleId: number, letterIndex: number) => {
+    e.dataTransfer.setData('letter', letter);
+    e.dataTransfer.setData('puzzleId', puzzleId.toString());
+    e.dataTransfer.setData('letterIndex', letterIndex.toString());
   };
 
-  const handleDrop = (e: React.DragEvent, targetLetter: Letter, index: number) => {
+  const handleDrop = (e: React.DragEvent, index: number, puzzleId: number) => {
     e.preventDefault();
-    const droppedLetter: Letter = JSON.parse(e.dataTransfer.getData('letter'));
+    const letter = e.dataTransfer.getData('letter');
+    const sourcePuzzleId = parseInt(e.dataTransfer.getData('puzzleId'));
+    const letterIndex = parseInt(e.dataTransfer.getData('letterIndex'));
 
-    if (droppedLetter.id === targetLetter.id) {
-      const element = document.getElementById(`letter-${index}`);
-      element?.classList.add('correct-match');
-      setMatched(prev => {
-        const newMatched = [...prev];
-        newMatched[index] = true;
-        if (newMatched.every(m => m)) {
+    if (sourcePuzzleId !== puzzleId) return;
+
+    // Update user answers
+    const newAnswers = { ...userAnswers };
+    newAnswers[puzzleId][index] = letter;
+    setUserAnswers(newAnswers);
+
+    // Remove letter from scrambled letters
+    const newScrambled = { ...scrambledLetters };
+    newScrambled[puzzleId] = newScrambled[puzzleId].filter((_, idx) => idx !== letterIndex);
+    setScrambledLetters(newScrambled);
+
+    // Check if word is complete
+    const currentWord = newAnswers[puzzleId].join('');
+    const puzzle = puzzles.find(p => p.id === puzzleId);
+    
+    if (currentWord === puzzle?.word && !correctAnswers.includes(puzzleId)) {
+      const newCorrectAnswers = [...correctAnswers, puzzleId];
+      setCorrectAnswers(newCorrectAnswers);
+      
+      // Check if all puzzles are solved
+      if (newCorrectAnswers.length === puzzles.length) {
+        setTimeout(() => {
           setSuccess(true);
           setShowModal(true);
-        }
-        return newMatched;
-      });
-    } else {
-      const element = document.getElementById(`letter-${index}`);
-      element?.classList.add('shake');
-      setTimeout(() => {
-        element?.classList.remove('shake');
-      }, 500);
+        }, 500);
+      }
     }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
   };
 
   const handleRestart = () => {
     setShowModal(false);
     setSuccess(false);
-    setMatched(Array(6).fill(false));
-    shuffleLetters();
+    initializeGame();
   };
 
   return (
     <GameSectionLayout 
-      title="Әріптерді сәйкестендір" 
-      backgroundImage="/assets/bg/memory.jpg"
+      title="Әріптерден суреттің сөзін құра" 
+      backgroundImage="/assets/bg/5.jpg"
       darkHeader
     >
-      <div className="flex flex-col items-center p-6">
-        <div className="grid grid-cols-3 gap-4 my-6">
-          {shuffledLowerCase.map((letter, index) => (
-            <div
-              key={letter.id}
-              id={`letter-${index}`}
-              className="w-24 h-24 border p-4 rounded-lg flex flex-col justify-center items-center bg-white"
-              onDrop={(e) => handleDrop(e, letter, index)}
-              onDragOver={handleDragOver}
-            >
-              <p className="text-4xl">{letter.lower}</p>
+      <div className="flex items-center justify-center p-6 gap-8">
+        {puzzles.map((puzzle) => (
+          <div 
+            key={puzzle.id}
+            className={`flex flex-col items-center gap-4 p-6 rounded-xl transition-all
+              ${correctAnswers.includes(puzzle.id) ? 'bg-green-100' : ''}`}
+          >
+            <div className="w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center">
+              <Image 
+                src={puzzle.image}
+                alt={puzzle.alt}
+                width={160}
+                height={160}
+                className="object-contain"
+              />
             </div>
-          ))}
-        </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          {shuffledUpperCase.map((letter) => (
-            <div
-              key={letter.id}
-              draggable
-              onDragStart={(e) => handleDragStart(e, letter)}
-              className="w-24 h-24 border p-4 rounded-lg text-4xl font-bold cursor-pointer bg-white flex justify-center items-center"
-            >
-              {letter.upper}
+            <div className="flex gap-2">
+              {puzzle.word.split('').map((_, index) => (
+                <div
+                  key={index}
+                  onDrop={(e) => handleDrop(e, index, puzzle.id)}
+                  onDragOver={(e) => e.preventDefault()}
+                  className="w-12 h-12 border-2 rounded-lg flex items-center justify-center bg-white text-2xl font-bold"
+                >
+                  {userAnswers[puzzle.id]?.[index]}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+
+            <div className="flex gap-2">
+              {scrambledLetters[puzzle.id]?.map((letter, index) => (
+                <div
+                  key={index}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, letter, puzzle.id, index)}
+                  className="w-12 h-12 border-2 rounded-lg flex items-center justify-center bg-white text-2xl font-bold cursor-move hover:bg-blue-50"
+                >
+                  {letter}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {showModal && (
@@ -115,24 +149,6 @@ export default function MemoryGameFive() {
           <GameModal success={success} onRestart={handleRestart} />
         </div>
       )}
-
-      <style jsx global>{`
-        .correct-match {
-          background-color: #ecfdf5;
-          border-color: #34d399;
-        }
-        
-        .shake {
-          animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-        }
-
-        @keyframes shake {
-          10%, 90% { transform: translate3d(-1px, 0, 0); }
-          20%, 80% { transform: translate3d(2px, 0, 0); }
-          30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-          40%, 60% { transform: translate3d(4px, 0, 0); }
-        }
-      `}</style>
     </GameSectionLayout>
   );
 }

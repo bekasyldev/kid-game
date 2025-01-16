@@ -75,7 +75,7 @@ export default function AttentionGameFive() {
   return (
     <GameSectionLayout 
       title="Сыңарын тап" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/5.jpg"
       darkHeader
     >
       <div className="flex justify-center p-6">

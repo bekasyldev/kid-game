@@ -74,7 +74,7 @@ export default function MemoryGameSeven() {
   return (
     <GameSectionLayout 
       title="Сөздерді орналастыр" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/7.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

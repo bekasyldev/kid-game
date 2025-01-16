@@ -73,7 +73,7 @@ export default function ThinkingGameSeven() {
   return (
     <GameSectionLayout 
       title="Үлкен-Кіші" 
-      backgroundImage="/assets/bg/thinking.webp"
+      backgroundImage="/assets/bg/7.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

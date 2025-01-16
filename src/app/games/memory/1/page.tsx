@@ -101,7 +101,7 @@ export default function MemoryGameOne() {
   return (
     <GameSectionLayout 
       title="Суреттердің тиісті орындарын табу" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/1.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center justify-center p-6 text-black">

@@ -62,7 +62,7 @@ export default function ThinkingGameSix() {
   return (
     <GameSectionLayout 
       title="Себетті толтыр" 
-      backgroundImage="/assets/bg/thinking.webp"
+      backgroundImage="/assets/bg/6.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

@@ -79,8 +79,8 @@ export default function FantasyGameFour() {
 
   return (
     <GameSectionLayout 
-      title="Бөліктерін тап" 
-      backgroundImage="/assets/bg/fantasy.webp"
+      title="Суреттердің бөліктерін табыңыз" 
+      backgroundImage="/assets/bg/4.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

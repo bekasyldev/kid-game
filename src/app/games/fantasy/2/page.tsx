@@ -75,7 +75,7 @@ export default function FantasyGameTwo() {
   return (
     <GameSectionLayout 
       title="Түстерді дұрыс элементтерге сүйреңіз" 
-      backgroundImage="/assets/bg/fantasy.webp"
+      backgroundImage="/assets/bg/2.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6 gap-8">

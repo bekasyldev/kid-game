@@ -21,26 +21,26 @@ export default function AttentionGameOne() {
   const puzzles: PicturePuzzle[] = [
     { 
       id: 1, 
-      mainImage: '/new/sun.jpeg', 
-      pieceImage: '/new/sun.jpeg',
-      alt: 'Күн' 
+      mainImage: '/assets/games/apple.png', 
+      pieceImage: '/assets/games/half-apple.jpg',
+      alt: 'Алма' 
     },
     { 
       id: 2, 
-      mainImage: '/new/toy.png', 
-      pieceImage: '/new/toy.png',
+      mainImage: '/assets/games/strawberry.png', 
+      pieceImage: '/assets/games/half-strawberry.jpg',
       alt: 'Ойыншық' 
     },
     { 
       id: 3, 
-      mainImage: '/new/car.png', 
-      pieceImage: '/new/car.png',
-      alt: 'Көлік' 
+      mainImage: '/assets/games/banana.png', 
+      pieceImage: '/assets/games/half-banana.jpg',
+      alt: 'Банана' 
     },
     { 
       id: 4, 
-      mainImage: '/new/umbrella.png', 
-      pieceImage: '/new/umbrella.png',
+      mainImage: '/assets/games/orange.jpg', 
+      pieceImage: '/assets/games/half-orange.jpg',
       alt: 'Қолшатыр' 
     },
   ];
@@ -90,8 +90,8 @@ export default function AttentionGameOne() {
 
   return (
     <GameSectionLayout 
-      title="Бөлігін тап" 
-      backgroundImage="/assets/bg/memory.jpg"
+      title="Бөліктерін тап" 
+      backgroundImage="/assets/bg/7.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6 gap-12">

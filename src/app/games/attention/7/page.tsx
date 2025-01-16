@@ -105,7 +105,7 @@ export default function AttentionGameSeven() {
   return (
     <GameSectionLayout 
       title="Тізбекті жалғастыр" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/7.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6 gap-8">

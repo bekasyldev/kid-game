@@ -74,7 +74,7 @@ export default function ThinkingGameFive() {
   return (
     <GameSectionLayout 
       title="Ойлан, тап" 
-      backgroundImage="/assets/bg/thinking.webp"
+      backgroundImage="/assets/bg/5.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

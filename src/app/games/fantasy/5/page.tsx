@@ -33,7 +33,7 @@ export default function FantasyGameFive() {
   const foods: Food[] = [
     { id: 1, name: 'Шөп', image: '/assets/games/grass.png', forAnimal: 1 },
     { id: 2, name: 'Сәбіз', image: '/assets/games/carrot.jpg', forAnimal: 2 },
-    { id: 3, name: 'Дән', image: '/assets/games/seeds.png', forAnimal: 3 },
+    { id: 3, name: 'Дән', image: '/assets/games/seeds.jpg', forAnimal: 3 },
     { id: 4, name: 'Сүйек', image: '/assets/games/bone.jpg', forAnimal: 4 },
     { id: 5, name: 'Балық', image: '/assets/games/fish.png', forAnimal: 5 },
   ].sort(() => Math.random() - 0.5);
@@ -53,10 +53,19 @@ export default function FantasyGameFive() {
       setMatchedPairs(prev => [...prev, animalId]);
       setAvailableFoods(prev => prev.filter(f => f.id !== foodId));
 
-      if (matchedPairs.length + 1 === animals.length) {
-        setSuccess(true);
-        setShowModal(true);
+      const newMatchedCount = matchedPairs.length + 1;
+      if (newMatchedCount === animals.length) {
+        setTimeout(() => {
+          setSuccess(true);
+          setShowModal(true);
+        }, 500);
       }
+    } else {
+      const element = document.getElementById(`animal-${animalId}`);
+      element?.classList.add('shake');
+      setTimeout(() => {
+        element?.classList.remove('shake');
+      }, 500);
     }
   };
 
@@ -70,7 +79,7 @@ export default function FantasyGameFive() {
   return (
     <GameSectionLayout 
       title="Кім не жейді?" 
-      backgroundImage="/assets/bg/fantasy.webp"
+      backgroundImage="/assets/bg/5.jpg"
       darkHeader
     >
       <div className="flex justify-between p-6">
@@ -79,9 +88,10 @@ export default function FantasyGameFive() {
           {animals.map((animal) => (
             <div
               key={animal.id}
+              id={`animal-${animal.id}`}
               onDrop={(e) => handleDrop(e, animal.id)}
               onDragOver={(e) => e.preventDefault()}
-              className={`w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center
+              className={`w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center transition-all
                 ${matchedPairs.includes(animal.id) ? 'bg-green-100' : ''}`}
             >
               <Image 
@@ -102,7 +112,7 @@ export default function FantasyGameFive() {
               key={food.id}
               draggable
               onDragStart={(e) => handleDragStart(e, food)}
-              className="w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center cursor-move"
+              className="w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center cursor-move hover:shadow-lg transition-all"
             >
               <Image 
                 src={food.image} 

@@ -17,9 +17,12 @@ export default function FantasyGameOne() {
   const [animals] = useState<Animal[]>([
     { id: 1, image: "/assets/games/rabbit.png", letter: "Қ", alt: "Қоян" },
     { id: 2, image: "/assets/games/tiger.png", letter: "Ж", alt: "Жолбарыс" },
-    { id: 3, image: "/assets/games/elk.png", letter: "Б", alt: "Бұлан" },
+    { id: 3, image: "/assets/games/fox.png", letter: "Т", alt: "Түлкі" },
     { id: 4, image: "/assets/games/kangaroo.png", letter: "К", alt: "Кенгуру" },
-    { id: 5, image: "/assets/games/gippo.png", letter: "С", alt: "Сусиыр" },
+    { id: 5, image: "/assets/games/bird.png", letter: "Қ", alt: "Құс" },
+    { id: 6, image: "/assets/games/horse.png", letter: "Ж", alt: "Жылқы" },
+    { id: 7, image: "/assets/games/bee_4.png", letter: "А", alt: "Ара" },
+    { id: 8, image: "/assets/games/frog.png", letter: "B", alt: "Бақа" },
   ]);
 
   const [inputs, setInputs] = useState<{ [key: number]: string }>({});
@@ -58,7 +61,7 @@ export default function FantasyGameOne() {
   return (
     <GameSectionLayout 
       title="Жануарды оның әрпімен сәйкестендіріңіз" 
-      backgroundImage="/assets/bg/fantasy.webp"
+      backgroundImage="/assets/bg/1.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

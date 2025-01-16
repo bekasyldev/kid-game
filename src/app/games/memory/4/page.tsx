@@ -134,7 +134,7 @@ export default function MemoryGameFour() {
   return (
     <GameSectionLayout 
       title="Бірдей суретті тап" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/4.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

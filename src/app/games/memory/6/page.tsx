@@ -78,7 +78,7 @@ export default function MemoryGameSix() {
   return (
     <GameSectionLayout 
       title="Қатарды есіне сақтап ал" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/6.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

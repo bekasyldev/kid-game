@@ -95,7 +95,7 @@ export default function ThinkingGameTwo() {
   return (
     <GameSectionLayout 
       title="Жоғалған әріптер" 
-      backgroundImage="/assets/bg/thinking.webp"
+      backgroundImage="/assets/bg/2.jpg"
       darkHeader
     >
       <div className="grid grid-cols-3 gap-6 mt-6">

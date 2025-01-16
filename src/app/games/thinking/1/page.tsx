@@ -71,7 +71,7 @@ export default function ThinkingGameOne() {
   return (
     <GameSectionLayout 
       title="Жануарды көлеңкесіне қарай табыңыз" 
-      backgroundImage="/assets/bg/thinking.webp"
+      backgroundImage="/assets/bg/1.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

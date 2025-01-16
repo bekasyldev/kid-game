@@ -59,7 +59,7 @@ export default function AttentionGameFour() {
   return (
     <GameSectionLayout 
       title="Суретті ізде" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/4.jpg"
       darkHeader
     >
       <div className="flex justify-between p-6 gap-20">

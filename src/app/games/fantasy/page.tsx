@@ -6,10 +6,10 @@ export default function FantasyGamesPage() {
     { title: "Түстерді дұрыс элементтерге сүйреу", link: "/games/fantasy/2" },
     { title: "Cөздерді дұрыс элементтерге сүйреу", link: "/games/fantasy/3" },
     // check it
-    { title: "Бөліктерін тап", link: "/games/fantasy/4" },
+    { title: "Суреттердің бөліктерін табыңыз", link: "/games/fantasy/4" },
     { title: "Кім не жейді", link: "/games/fantasy/5" },
     { title: "Ребус", link: "/games/fantasy/6" },
-    { title: "Түстерді ретімен қой", link: "/games/fantasy/7" },
+    { title: "Бөліктерін тап", link: "/games/fantasy/7" },
   ];
 
   return (

@@ -41,7 +41,7 @@ export default function MemoryGameThree() {
         { id: 6, image: "/assets/games/cat.png", alt: "Мысық" },
         { id: 7, image: "/assets/games/dog.png", alt: "Ит" },
         { id: 8, image: "/assets/games/rabbit.png", alt: "Қоян" },
-        { id: 9, image: "/assets/games/crocodile.webp", alt: "Крокодил" },
+        { id: 9, image: "/assets/games/crocodile.webp", alt: "Қолтырауын" },
         { id: 10, image: "/assets/games/tiger.png", alt: "Жолбарыс" },
       ]
     },
@@ -98,7 +98,7 @@ export default function MemoryGameThree() {
   return (
     <GameSectionLayout 
       title="Дұрыс қатарды тап" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/3.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

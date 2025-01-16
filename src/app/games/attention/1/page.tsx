@@ -1,154 +1,107 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import GameSectionLayout from "@/app/components/GameSectionLayout";
 import GameModal from '@/app/components/GameModal';
 import Image from 'next/image';
 
-interface WordPuzzle {
+interface ImageSet {
   id: number;
-  image: string;
-  word: string;
+  src: string;
   alt: string;
+  isOddOne: boolean;
 }
 
 export default function AttentionGameOne() {
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [puzzles] = useState<WordPuzzle[]>([
-    { id: 1, image: '/assets/games/horse.png', word: 'Жылқы', alt: 'Қой' },
-    { id: 2, image: '/new/rabbit.jpeg', word: 'Қоян', alt: 'Қоян' },
-    { id: 3, image: '/new/camel.jpeg', word: 'Түйе', alt: 'Түйе' },
-    { id: 4, image: '/new/fox.jpeg', word: 'Түлкі', alt: 'Түлкі' },
-  ]);
-  const [scrambledLetters, setScrambledLetters] = useState<{ [key: number]: string[] }>({});
-  const [userAnswers, setUserAnswers] = useState<{ [key: number]: string[] }>({});
-  const [correctAnswers, setCorrectAnswers] = useState<number[]>([]);
+  const [selectedImages, setSelectedImages] = useState<number[]>([]);
+  const [correctRows, setCorrectRows] = useState<number[]>([]);
 
-  useEffect(() => {
-    // Initialize scrambled letters for each puzzle
-    const initialScrambled: { [key: number]: string[] } = {};
-    puzzles.forEach(puzzle => {
-      initialScrambled[puzzle.id] = puzzle.word.split('').sort(() => Math.random() - 0.5);
-    });
-    setScrambledLetters(initialScrambled);
-    
-    // Initialize empty user answers
-    const initialAnswers: { [key: number]: string[] } = {};
-    puzzles.forEach(puzzle => {
-      initialAnswers[puzzle.id] = Array(puzzle.word.length).fill('');
-    });
-    setUserAnswers(initialAnswers);
-  }, [puzzles]);
+  const imageSets = [
+    // Row 1
+    [
+      { id: 1, src: '/assets/games/cat.png', alt: 'Мысық', isOddOne: false },
+      { id: 2, src: '/assets/games/dog.png', alt: 'Ит', isOddOne: false },
+      { id: 3, src: '/assets/games/rabbit.png', alt: 'Қоян', isOddOne: false },
+      { id: 4, src: '/assets/games/apple.png', alt: 'Алма', isOddOne: true },
+    ],
+    // Row 2
+    [
+      { id: 5, src: '/assets/games/pen.png', alt: 'Қалам', isOddOne: false },
+      { id: 6, src: '/assets/games/pencil.png', alt: 'Қарындаш', isOddOne: false },
+      { id: 7, src: '/assets/games/orange.jpg', alt: 'Апельсин', isOddOne: true },
+      { id: 8, src: '/assets/games/bus.webp', alt: 'Автобус', isOddOne: false },
+    ],
+    // Row 3
+    [
+      { id: 9, src: '/assets/games/bird.png', alt: 'Құс', isOddOne: true },
+      { id: 10, src: '/assets/games/cat.png', alt: 'Мысық', isOddOne: false },
+      { id: 11, src: '/assets/games/dog.png', alt: 'Ит', isOddOne: false },
+      { id: 12, src: '/assets/games/rabbit.png', alt: 'Қоян', isOddOne: false },
+    ],
+  ];
 
-  const handleDragStart = (e: React.DragEvent, letter: string, puzzleId: number) => {
-    e.dataTransfer.setData('letter', letter);
-    e.dataTransfer.setData('puzzleId', puzzleId.toString());
-  };
-
-  const handleDrop = (e: React.DragEvent, index: number, puzzleId: number) => {
-    e.preventDefault();
-    const letter = e.dataTransfer.getData('letter');
-    const sourcePuzzleId = parseInt(e.dataTransfer.getData('puzzleId'));
-
-    if (sourcePuzzleId !== puzzleId) return;
-
-    const newAnswers = { ...userAnswers };
-    newAnswers[puzzleId][index] = letter;
-    setUserAnswers(newAnswers);
-
-    // Check if word is complete and correct
-    const currentWord = newAnswers[puzzleId].join('');
-    const puzzle = puzzles.find(p => p.id === puzzleId);
-    
-    if (currentWord === puzzle?.word && !correctAnswers.includes(puzzleId)) {
-      setCorrectAnswers(prev => [...prev, puzzleId]);
+  const handleImageClick = (imageId: number, isOddOne: boolean, rowIndex: number) => {
+    // Add or remove from selected images
+    if (selectedImages.includes(imageId)) {
+      setSelectedImages(prev => prev.filter(id => id !== imageId));
+      setCorrectRows(prev => prev.filter(row => row !== rowIndex));
+    } else {
+      setSelectedImages(prev => [...prev, imageId]);
       
-      // Check if all puzzles are solved
-      if (correctAnswers.length === puzzles.length - 1) {
-        setTimeout(() => {
-          setSuccess(true);
-          setShowModal(true);
-        }, 500);
+      if (isOddOne) {
+        setCorrectRows(prev => [...prev, rowIndex]);
+        
+        // Check if all rows are correct
+        if (correctRows.length === 2) { // We need 3 correct rows (0, 1, 2)
+          setTimeout(() => {
+            setSuccess(true);
+            setShowModal(true);
+          }, 500);
+        }
       }
     }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
   };
 
   const handleRestart = () => {
     setShowModal(false);
     setSuccess(false);
-    setCorrectAnswers([]);
-    
-    // Reset scrambled letters
-    const newScrambled: { [key: number]: string[] } = {};
-    puzzles.forEach(puzzle => {
-      newScrambled[puzzle.id] = puzzle.word.split('').sort(() => Math.random() - 0.5);
-    });
-    setScrambledLetters(newScrambled);
-    
-    // Reset user answers
-    const newAnswers: { [key: number]: string[] } = {};
-    puzzles.forEach(puzzle => {
-      newAnswers[puzzle.id] = Array(puzzle.word.length).fill('');
-    });
-    setUserAnswers(newAnswers);
+    setSelectedImages([]);
+    setCorrectRows([]);
   };
 
   return (
     <GameSectionLayout 
-      title="Әріптерден суреттің сөзін құра" 
-      backgroundImage="/assets/bg/memory.jpg"
+      title="Артық суретті тап" 
+      backgroundImage="/assets/bg/1.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6 gap-8">
-        {puzzles.map((puzzle) => (
+        {imageSets.map((row, rowIndex) => (
           <div 
-            key={puzzle.id}
-            className={`flex flex-col items-center gap-4 p-6 rounded-xl transition-all
-              ${correctAnswers.includes(puzzle.id) ? 'bg-green-100' : ''}`}
+            key={rowIndex} 
+            className={`flex gap-6 p-4 rounded-xl transition-all
+              ${correctRows.includes(rowIndex) ? 'bg-green-100' : ''}`}
           >
-            {/* Image */}
-            <div className="w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center">
-              <Image 
-                src={puzzle.image}
-                alt={puzzle.alt}
-                width={160}
-                height={160}
-                className="object-contain"
-              />
-            </div>
-
-            {/* Letter slots */}
-            <div className="flex gap-2">
-              {puzzle.word.split('').map((_, index) => (
-                <div
-                  key={index}
-                  onDrop={(e) => handleDrop(e, index, puzzle.id)}
-                  onDragOver={handleDragOver}
-                  className="w-12 h-12 border-2 rounded-lg flex items-center justify-center bg-white text-2xl font-bold"
-                >
-                  {userAnswers[puzzle.id]?.[index]}
-                </div>
-              ))}
-            </div>
-
-            {/* Scrambled letters */}
-            <div className="flex gap-2">
-              {scrambledLetters[puzzle.id]?.map((letter, index) => (
-                <div
-                  key={index}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, letter, puzzle.id)}
-                  className="w-12 h-12 border-2 rounded-lg flex items-center justify-center bg-white text-2xl font-bold cursor-move hover:bg-blue-50"
-                >
-                  {letter}
-                </div>
-              ))}
-            </div>
+            {row.map((image) => (
+              <div
+                key={image.id}
+                onClick={() => handleImageClick(image.id, image.isOddOne, rowIndex)}
+                className={`w-48 h-48 bg-white rounded-lg p-4 flex items-center justify-center cursor-pointer
+                  ${selectedImages.includes(image.id) && image.isOddOne ? 'bg-green-100' : ''}
+                  ${selectedImages.includes(image.id) && !image.isOddOne ? 'bg-red-100' : ''}
+                  hover:shadow-lg transition-all`}
+              >
+                <Image 
+                  src={image.src} 
+                  alt={image.alt}
+                  width={160}
+                  height={160}
+                  className="object-contain"
+                />
+              </div>
+            ))}
           </div>
         ))}
       </div>

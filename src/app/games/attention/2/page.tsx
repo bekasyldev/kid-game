@@ -65,7 +65,7 @@ export default function AttentionGameFour() {
   return (
     <GameSectionLayout 
       title="Суретті ізде" 
-      backgroundImage="/assets/bg/memory.jpg"
+      backgroundImage="/assets/bg/2.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">

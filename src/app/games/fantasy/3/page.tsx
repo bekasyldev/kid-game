@@ -66,7 +66,7 @@ export default function FantasyGameThree() {
   return (
     <GameSectionLayout 
       title="Сөздерді дұрыс элементтерге сүйреңіз" 
-      backgroundImage="/assets/bg/fantasy.webp"
+      backgroundImage="/assets/bg/3.jpg"
       darkHeader
     >
       <div className="relative flex flex-col items-center p-6">

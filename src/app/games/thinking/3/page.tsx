@@ -70,7 +70,7 @@ export default function ThinkingGameThree() {
   return (
     <GameSectionLayout 
       title="Сандармен сәйкестендір" 
-      backgroundImage="/assets/bg/thinking.webp"
+      backgroundImage="/assets/bg/3.jpg"
       darkHeader
     >
       <div className="flex flex-col items-center p-6">
