@@ -16,11 +16,14 @@ export default function GamesPage() {
   return (
     <PageLayout>
       <section className="h-full flex flex-col justify-center gap-32">
-        <section className="flex items-center gap-8">
+        <section className="flex  items-center gap-8">
+          <div className="w-full bg-black/65 p-10 rounded-2xl flex items-center gap-10">
           <BackButton />
-          <h1 className="text-[var(--primary)] text-6xl font-bold text-center">
-            Дидактикалык ойындар
-          </h1>
+
+            <h1 className="text-white text-6xl font-bold text-center">
+              Дидактикалык ойындар
+            </h1>
+          </div>
         </section>
         <ul className="flex gap-4">
           {games.map((game) => (
