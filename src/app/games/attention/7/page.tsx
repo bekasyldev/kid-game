@@ -31,8 +31,8 @@ export default function AttentionGameSeven() {
 
   // Define correct answers for each row
   const correctAnswers = {
-    row1: [shapes[1].id, shapes[0].id], // Circle, Box
-    row2: [shapes[4].id, shapes[3].id], // Cycle, Heart
+    row1: [shapes[1].id, shapes[2].id], // Circle, Box
+    row2: [shapes[4].id, shapes[5].id], // Cycle, Car
     row3: [shapes[4].id, shapes[3].id], // Cycle, Circle
   };
 

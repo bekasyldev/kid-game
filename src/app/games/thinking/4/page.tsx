@@ -87,7 +87,7 @@ export default function ThinkingGameFour() {
             <div
               key={animal.id}
               onClick={() => handleAnimalClick(animal)}
-              className={`w-32 h-32 bg-white rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer transition-all
+              className={`w-48 h-48 bg-white rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer transition-all
                 ${matchedPairs.includes(animal.id) ? 'opacity-50' : ''}
                 ${selectedAnimal?.id === animal.id ? 'ring-4 ring-blue-500' : ''}
                 ${!matchedPairs.includes(animal.id) && 'hover:shadow-lg'}`}
@@ -95,8 +95,8 @@ export default function ThinkingGameFour() {
               <Image 
                 src={animal.image} 
                 alt={animal.name} 
-                width={80} 
-                height={80} 
+                width={140} 
+                height={140} 
                 className="object-contain"
               />
               <div className="mt-2 text-center font-medium">

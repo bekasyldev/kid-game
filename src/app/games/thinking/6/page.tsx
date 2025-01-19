@@ -92,9 +92,9 @@ export default function ThinkingGameSix() {
               key={item.id}
               draggable
               onDragStart={(e) => handleDragStart(e, item)}
-              className="w-24 h-24 bg-white rounded-lg flex items-center justify-center cursor-move"
+              className="w-48 h-48 bg-white rounded-lg flex items-center justify-center cursor-move"
             >
-              <Image src={item.image} alt={item.alt} width={80} height={80} className="object-contain" />
+              <Image src={item.image} alt={item.alt} width={140} height={140} className="object-contain" />
             </div>
           ))}
         </div>

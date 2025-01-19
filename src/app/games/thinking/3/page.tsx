@@ -79,7 +79,7 @@ export default function ThinkingGameThree() {
             <div
               key={item.id}
               id={`item-${item.id}`}
-              className="border p-4 rounded-lg flex flex-col items-center bg-white"
+              className="w-48 h-48 border p-4 rounded-lg flex flex-col items-center bg-white"
               onDrop={(e) => handleDrop(e, item)}
               onDragOver={handleDragOver}
             >

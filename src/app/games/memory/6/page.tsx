@@ -84,13 +84,13 @@ export default function MemoryGameSix() {
       <div className="flex flex-col items-center p-6">
         <div className="flex gap-4 mb-8">
           {originalSequence.map((animal, index) => (
-            <div key={index} className="w-32 h-32 border rounded-lg bg-white flex items-center justify-center">
+            <div key={index} className="w-48 h-48 border rounded-lg bg-white flex items-center justify-center">
               {(showingSequence || revealedCards.includes(index)) ? (
                 <Image 
                   src={animal.image} 
                   alt={animal.alt} 
-                  width={100} 
-                  height={100} 
+                  width={150} 
+                  height={150} 
                   className="object-contain" 
                 />
               ) : (
@@ -106,9 +106,9 @@ export default function MemoryGameSix() {
               <div
                 key={animal.id}
                 onClick={() => handleAnimalClick(animal)}
-                className="cursor-pointer border p-4 rounded-lg bg-white"
+                className="w-48 h-48 cursor-pointer border p-4 rounded-lg bg-white"
               >
-                <Image src={animal.image} alt={animal.alt} width={100} height={100} className="object-contain" />
+                <Image src={animal.image} alt={animal.alt} width={100} height={100} className="object-contain w-full h-full" />
               </div>
             ))}
           </div>

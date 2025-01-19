@@ -125,7 +125,7 @@ export default function FantasyGameSix() {
       <div className="flex flex-col items-center gap-6 p-6">
         {/* Grid Display */}
         <div
-          className={`grid grid-cols-${GRID_SIZE} gap-1 bg-white/10 p-4 rounded-xl`}
+          className={`grid grid-cols-7 gap-1 bg-white/10 p-4 rounded-xl`}
           >
         {grid.map((row) =>
           row.map((cell) => (

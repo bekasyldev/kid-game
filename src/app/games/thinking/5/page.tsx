@@ -29,17 +29,17 @@ export default function ThinkingGameFive() {
     {
       id: 3,
       sequence: ['/assets/games/bird.png', '/assets/games/camel.png', '/assets/games/bird.png'],
-      answer: '/assets/games/bird.png'
+      answer: '/assets/games/camel.png'
     },
     {
       id: 4,
       sequence: ['/assets/games/duck.png', '/assets/games/camel.png', '/assets/games/duck.png'],
-      answer: '/assets/games/duck.png'
+      answer: '/assets/games/camel.png'
     },
     {
       id: 5,
       sequence: ['/assets/games/bird.png', '/assets/games/fox.png', '/assets/games/bird.png'],
-      answer: '/assets/games/bird.png'
+      answer: '/assets/games/fox.png'
     }
   ];
 
@@ -83,18 +83,18 @@ export default function ThinkingGameFive() {
           {patterns.map((pattern) => (
             <div key={pattern.id} className="flex items-center gap-4">
               {pattern.sequence.map((image, index) => (
-                <div key={index} className="w-24 h-24 bg-white rounded-lg flex items-center justify-center">
-                  <Image src={image} alt="" width={80} height={80} className="object-contain" />
+                <div key={index} className="w-32 h-32 bg-white rounded-lg flex items-center justify-center">
+                  <Image src={image} alt="" width={140} height={140} className="object-contain" />
                 </div>
               ))}
               <div
-                className={`w-24 h-24 border-2 rounded-lg flex items-center justify-center 
+                className={`w-32 h-32 border-2 rounded-lg flex items-center justify-center 
                   ${completedPatterns.includes(pattern.id) ? 'bg-white' : 'border-dashed'}`}
                 onDrop={(e) => handleDrop(e, pattern.id, pattern.answer)}
                 onDragOver={handleDragOver}
               >
                 {completedPatterns.includes(pattern.id) && (
-                  <Image src={pattern.answer} alt="" width={80} height={80} className="object-contain" />
+                  <Image src={pattern.answer} alt="" width={140} height={140} className="object-contain" />
                 )}
               </div>
             </div>
@@ -108,9 +108,9 @@ export default function ThinkingGameFive() {
               key={pattern.id}
               draggable
               onDragStart={(e) => handleDragStart(e, pattern.answer)}
-              className="w-24 h-24 bg-white rounded-lg flex items-center justify-center cursor-move"
+              className="w-32 h-32 bg-white rounded-lg flex items-center justify-center cursor-move"
             >
-              <Image src={pattern.answer} alt="" width={80} height={80} className="object-contain" />
+              <Image src={pattern.answer} alt="" width={140} height={140} className="object-contain" />
             </div>
           ))}
         </div>

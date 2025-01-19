@@ -21,16 +21,16 @@ export default function AttentionGameOne() {
   const imageSets = [
     // Row 1
     [
-      { id: 1, src: '/assets/games/cat.png', alt: 'Мысық', isOddOne: false },
-      { id: 2, src: '/assets/games/dog.png', alt: 'Ит', isOddOne: false },
-      { id: 3, src: '/assets/games/rabbit.png', alt: 'Қоян', isOddOne: false },
-      { id: 4, src: '/assets/games/apple.png', alt: 'Алма', isOddOne: true },
+      { id: 1, src: '/assets/games/broccoli.png', alt: 'Брокколи', isOddOne: true },
+      { id: 2, src: '/assets/games/strawberry.png', alt: 'Құлпынай', isOddOne: false },
+      { id: 3, src: '/assets/games/orange.jpg', alt: 'Апельсин', isOddOne: false },
+      { id: 4, src: '/assets/games/apple.png', alt: 'Алма', isOddOne: false },
     ],
     // Row 2
     [
-      { id: 5, src: '/assets/games/pen.png', alt: 'Қалам', isOddOne: false },
-      { id: 6, src: '/assets/games/pencil.png', alt: 'Қарындаш', isOddOne: false },
-      { id: 7, src: '/assets/games/orange.jpg', alt: 'Апельсин', isOddOne: true },
+      { id: 5, src: '/assets/games/car.png', alt: 'Автомобиль', isOddOne: false },
+      { id: 6, src: '/assets/games/plane.jpg', alt: 'Ұшақ', isOddOne: true },
+      { id: 7, src: '/assets/games/bicycle.png', alt: 'Велосипед', isOddOne: false },
       { id: 8, src: '/assets/games/bus.webp', alt: 'Автобус', isOddOne: false },
     ],
     // Row 3
