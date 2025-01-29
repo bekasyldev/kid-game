@@ -4,7 +4,7 @@ import BackButton from "../components/BackButton";
 export default function AuthorsPage() {
   const authors = [
     {
-      name: "Алшынбекова Гулназия Канагатовна",
+      name: "Алшынбекова Гульназия Канагатовна",
       description: "биология ғылымдарының кандидаты, қауымдастырылған профессор, Е.А. Бөкетов атындағы Қарағанды университеті"
     },
     {
